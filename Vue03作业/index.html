@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="bower_components/vue/dist/vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #app{
+            width: 800px;
+            height: 770px;
+            background-color: #439DB4;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 30px;
+        }
+        #app .title{
+            font-size: 80px;
+            color: white;
+        }
+        #app .model{
+            width: 600px;
+            height: 100px;
+            background-color: #E53C79;
+            margin: 20px auto;
+            line-height: 100px;
+            position: relative;
+        }
+        #app .model1{
+            width: 600px;
+            height: 100px;
+            background-color: #7BBC6A;
+            margin: 20px auto;
+            line-height: 100px;
+            position: relative;
+        }
+        #app span{
+            color: white;
+            font-size: 30px;
+            display: inline-block;
+            position: absolute;
+        }
+        span:nth-child(1){
+            left: 20px;
+        }
+        span:nth-child(2){
+            right: 20px;
+        }
+        .bottom{
+            width: 600px;
+            height: 100px;
+            border-top: 2px solid #B0B0B0;
+            margin: 30px auto;
+        }
+        h1{
+            margin-left: -450px;
+            margin-top: 20px;
+            color: white;
+            display: inline-block;
+        }
+        .sum{
+            font-size: 35px;
+            color: white;
+            margin-top: -40px;
+            margin-left: 400px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <p class="title">Services</p>
+    <div v-for="(name,index) in services" :class="{model:!services[index].active,model1:services[index].active}" @click="changeColor(index)">
+        <span>{{services[index].name}}</span>
+        <span>¥{{services[index].price}}</span>
+    </div>
+    <div class="bottom">
+        <h1>Total:</h1>
+        <p class="sum" :sum="sum">¥{{sum}}</p>
+    </div>
+
+
+</div>
+
+</body>
+<script>
+
+    var services = [
+        {
+            name: 'Web Development',
+            price: 300,
+            active:false
+        },{
+            name: 'Design',
+            price: 400,
+            active:false
+        },{
+            name: 'Integration',
+            price: 250,
+            active:false
+        },{
+            name: 'Training',
+            price: 220,
+            active:false
+        }
+    ]
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            services: services,
+            sum:0
+        },
+        methods: {
+            changeColor: function (a) {
+                this.services[a].active = !this.services[a].active;
+                if (this.services[a].active==true){
+                    this.sum += this.services[a].price;
+                }else{
+                    this.sum -= this.services[a].price;
+                }
+            }
+        }
+    });
+
+</script>
+</html>
