@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="bower_components/vue/dist/vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+            width: 100%;
+        }
+        body{
+            background-image: url("img/bg.png");
+            background-repeat: no-repeat;
+        }
+        #app{
+            overflow: hidden;
+        }
+        .nav{
+            width: 100%;
+            height: 90px;
+            background-color: white;
+            border: 1px solid #F1F1F1;
+        }
+        .navSmall{
+            width: 80%;
+            height: 90px;
+            margin: 0 auto;
+            line-height: 90px;
+            position: relative;
+        }
+        .logo{
+            margin-top: 25px;
+        }
+        a{
+            text-decoration: none;
+        }
+        .navSmall ul{
+            width: 600px;
+            height: 90px;
+            list-style: none;
+            position: absolute;
+            top:0;
+            left: 170px;
+        }
+        .navSmall ul li{
+            width: 100px;
+            text-align: center;
+            float: left;
+            color: black;
+        }
+        .navSmall ul li:hover{
+            background-color: #FBFBFB;
+        }
+        .pen {
+            clear: both;
+            width: 48px;
+            height: 48px;
+            border: 1px solid #5CB76E;
+            border-radius: 100%;
+            position: absolute;
+            right: 200px;
+            top: 15px;
+            padding-left: 2px;
+            padding-top: 2px;
+        }
+        .pen .green {
+            width: 46px;
+            height: 46px;
+            border-radius: 100%;
+            background-color: #5CB76E;
+            text-align: center;
+            line-height: 60px;
+        }
+        .pen .green:hover {
+            background: radial-gradient(circle farthest-side, rgb(83, 171, 89) 80%, rgb(186, 221, 189));
+        }
+        .pen .green img {
+            width: 30px;
+            height: 30px;
+        }
+        .btn {
+            width: 120px;
+            height: 45px;
+            border: 1px solid #5CB76E;
+            color: #5CB76E;
+            border-radius: 25px;
+            position: absolute;
+            right: 50px;
+            top: 20px;
+            text-align: center;
+            line-height: 45px;
+        }
+
+        .btn:hover {
+            background-color: #5CB76E;
+            color: white;
+        }
+        /*中部主体*/
+        .main{
+            width: 960px;
+            overflow: hidden;
+            margin: 40px auto;
+        }
+        .main .top:nth-child(1){
+            width: 480px;
+            height: 480px;
+            overflow: hidden;
+            position: relative;
+            float: left;
+        }
+        /*其余四张图*/
+        .main .topOther{
+            width: 240px;
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+            float: left;
+        }
+        .main .top:nth-child(1) img{
+            width: 480px;
+            height: 480px;
+            transition: 0.5s;
+        }
+        .main .topOther img{
+            width: 240px;
+            height: 240px;
+            transition: 0.5s;
+        }
+        .main .top:nth-child(1) .mengAll, .main .topOther .mengAll{
+            width: 100%;
+            height: 100%;
+            transition: 0.5s;
+            opacity: 0;
+            position: absolute;
+            bottom:0;
+            background-color: black;
+        }
+        .main .top:nth-child(2) .mengAll .meng,
+        .main .top:nth-child(3) .mengAll .meng,
+        .main .top:nth-child(5) .mengAll .meng{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 50px;
+            left: 70px;
+            background-image: url("img/play.png");
+            background-repeat: no-repeat;
+        }
+        .main .top:nth-child(1) .mengAll,.main .top:nth-child(4) .mengAll{
+            width: 480px;
+            height: 80px;
+        }
+        .main .top:nth-child(1) .mengAll{
+            width: 480px;
+            height: 80px;
+        }
+        .main .top :nth-child(1):hover>img{
+            transform: scale(1.2);
+        }
+        .main .top :nth-child(1):hover>.mengAll{
+            opacity: 0.5;
+        }
+        .main .top :nth-child(1):hover>.font{
+            opacity: 1;
+        }
+        .main .font {
+            opacity: 0;
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            color: white;
+            font-size: 18px;
+            transition: .5s;
+        }
+        .main .font p {
+            margin-top: 10px;
+        }
+        /*阅读article*/
+        .kuang{
+            margin-top: 60px;
+        }
+        .read{
+            margin-left: 10px;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+        /*3块*/
+        .content {
+            width: 940px;
+            height: 200px;
+            padding-left: 20px;
+            padding-top: 20px;
+            border: 1px solid #E8E8E8;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .content span {
+            display: block;
+            font-size: 23px;
+        }
+        .content span a, .mid-mid span a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .content span a:hover {
+            color: #5CB76E;
+        }
+
+        .content small {
+            display: block;
+            font-size: 15px;
+        }
+
+        .content small a, .mid-mid small a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .content small a:hover {
+            color: #5CB76E;
+        }
+        .content p {
+            width: 500px;
+            font-size: 14px;
+            color: #959495;
+        }
+        .content p a, .mid-mid p a {
+            text-decoration: none;
+            color: #5CB76E;
+        }
+        .content p a:hover {
+            color: green;
+        }
+        .content p img {
+            width: 8px;
+            height: 12px;
+        }
+        .content .photo {
+            width: 300px;
+            height: 220px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .content .contBottom {
+            position: absolute;
+            bottom: 10px;
+        }
+
+        /*图片Picture*/
+        /*2块*/
+        .kuang1{
+            margin-top: 40px;
+        }
+        .midSecond {
+            width: 960px;
+            height: 400px;
+        }
+        .mid-mid {
+            width: 470px;
+            height: 400px;
+            border: 1px solid #E8E8E8;
+            float: left;
+        }
+        .mid-mid .mid-left-pic {
+            float: left;
+        }
+        .mid-mid img:nth-child(1) {
+            width: 234px;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        .mid-mid img:nth-child(2), .mid-mid img:nth-child(3) {
+            width: 234px;
+            height: 100px;
+        }
+        .mid-mid span {
+            display: block;
+            clear: both;
+            margin-left: 20px;
+            font-size: 23px;
+        }
+        .mid-mid span a:hover {
+            color: #5CB76E;
+        }
+        .mid-mid p {
+            margin-left: 20px;
+        }
+        .mid-mid p a:hover {
+            color: green;
+        }
+        .mid-mid p .mark {
+            width: 13px;
+            height: 18px;
+            margin-top: 15px;
+        }
+        .mid-mid small {
+            display: inline-block;
+            font-size: 15px;
+            margin-left: 20px;
+            margin-top: 50px;
+        }
+        .mid-mid small a:hover {
+            color: #5CB76E;
+        }
+        .mid-mid p:last-child {
+            display: inline-block;
+            color: #BDBEBD;
+            margin-left: 100px;
+        }
+        /*Ting*/
+        .kuang2{
+            clear: both;
+            margin-top: 60px;
+            margin-left: -470px;
+        }
+        .midThirdAll {
+            width: 300px;
+            height: 420px;
+            border: 1px solid #E8E8E8;
+            position: relative;
+            float: left;
+        }
+        .midThirdAll:nth-child(2),.midThirdAll:nth-child(3){
+            margin-left: 25px;
+        }
+        .midThirdAll .ps {
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+        }
+        .midThirdAll img {
+            width: 300px;
+            height: 300px;
+            transition: .5s;
+        }
+        .midThirdAll span {
+            display: block;
+            font-size: 23px;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+        .midThirdAll span a {
+            text-decoration: none;
+            color: black;
+        }
+        .midThirdAll span a:hover {
+            color: #5CB76E;
+        }
+        .midThirdAll small {
+            display: block;
+            font-size: 14px;
+            margin-top: 5px;
+            margin-left: 20px;
+        }
+        .midThirdAll small a {
+            text-decoration: none;
+            color: black;
+        }
+        .midThirdAll small a:hover {
+            color: #5CB76E;
+        }
+        .midThirdAll p {
+            margin-top: 15px;
+            margin-left: 20px;
+            font-size: 14px;
+            color: #959495;
+        }
+        .midMengAll {
+            opacity: 0;
+            transition: 1s;
+        }
+        .midMeng {
+            background-color: black;
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            top: 0;
+        }
+        .midMengAll img {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+        .midThirdAll .ps:hover > img {
+            transform: scale(1.2);
+        }
+        .midThirdAll .ps:hover > .midMengAll {
+            opacity: 0.5;
+        }
+        /*人气片客 | Hot Pianker*/
+        .midForth .modual {
+            width: 230px;
+            height: 230px;
+            position: relative;
+            float: left;
+            margin-bottom: 40px;
+        }
+        .modual:nth-child(2),.modual:nth-child(3),.modual:nth-child(4) {
+            margin-left: 10px;
+        }
+        .midForth .modual .bigBj {
+            width: 230px;
+            height: 230px;
+        }
+        .midForth .header {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            position: absolute;
+            top: 40px;
+            left: 20px;
+        }
+        .modual span {
+            display: block;
+            font-size: 16px;
+            position: absolute;
+            top: 50px;
+            left: 120px;
+        }
+        .modual span a {
+            text-decoration: none;
+            color: black;
+        }
+        .modual span a:hover {
+            color: #5CB76E;
+        }
+        .modual small {
+            position: absolute;
+            top: 70px;
+            left: 120px;
+            color: black;
+        }
+        .modual p {
+            width: 90px;
+            position: absolute;
+            top: 90px;
+            left: 120px;
+            color: #ABACAB;
+        }
+        .modual .music {
+            width: 50px;
+            position: absolute;
+            top: 130px;
+            left: 30px;
+        }
+        /*查看更多*/
+        .moreBig {
+            clear: both;
+            width: 190px;
+            height: 50px;
+            border: 1px solid #5CB76E;
+            border-radius: 25px;
+            margin: 0 auto;
+            margin-bottom: 100px;
+        }
+        .moreBig .moreSmall {
+            width: 180px;
+            height: 40px;
+            background-color: #78BC85;
+            border-radius: 25px;
+            margin: 4px auto;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            font-size: 16px;
+        }
+        .moreBig a {
+            text-decoration: none;
+        }
+        .moreBig .moreSmall:hover {
+            background-color: #5CB76E;
+        }
+
+        /*底部*/
+        footer{
+            display: block;
+            clear: both;
+            width: 100%;
+            height: 120px;
+            background-color: black;
+            padding-top: 30px;
+        }
+        footer .footAll{
+            width: 80%;
+            height: 100px;
+            margin: 20px auto;
+            position: relative;
+        }
+        footer .footLogo{
+            width: 100px;
+            height: 50px;
+        }
+        footer .footAll ul{
+            width: 600px;
+            height: 20px;
+            list-style: none;
+            margin-top: -45px;
+            margin-left: 120px;
+        }
+        footer .footAll ul li{
+            font-size: 12px;
+            width: 60px;
+            height: 20px;
+            float: left;
+            color: #666666;
+        }
+        footer .footAll p{
+            clear: both;
+            font-size: 12px;
+            margin-left: 120px;
+            color: #666666;
+        }
+        footer .footAll .footAllP{
+            width: 350px;
+            height: 60px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        footer .footP {
+            width: 50px;
+            height: 50px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            float: left;
+            margin-left: 20px;
+        }
+        .footP1 {
+            background-image: url("img/phone.png");
+        }
+        .footP1:hover {
+            background-image: url("img/phone1.png");
+        }
+        .footP2 {
+            background-image: url("img/xinlang.png");
+        }
+        .footP2:hover {
+            background-image: url("img/cinlang1.png");
+        }
+        .footP3 {
+            background-image: url("img/wechat.png");
+        }
+        .footP3:hover {
+            background-image: url("img/wechat1.png");
+        }
+        .code {
+            position: absolute;
+            top: -220px;
+            right: 60px;
+            display: none;
+        }
+        .footP3:hover ~ .code {
+            display: block;
+        }
+        .verify {
+            width: 100px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <!--上部导航-->
+    <div class="nav">
+        <div class="navSmall">
+            <a href=""><img src="img/pk.png" class="logo"></a>
+            <ul>
+                <a href="###" v-for="nav in navs"><li>{{nav}}</li></a>
+            </ul>
+            <a href=""><div class="pen">
+                <div class="green">
+                    <img src="img/pec.png">
+                </div>
+            </div></a>
+            <a href="###"><div class="btn"> 登录 <span>/</span> 注册</div></a>
+        </div>
+    </div>
+
+    <!--中部主体-->
+    <div class="main">
+        <!--顶部图片 5张-->
+        <div class="top topOther" v-for="(img,index) in images">
+        <a href="###">
+            <img :src="img.name">
+            <div class="mengAll">
+                <div class="meng"></div>
+            </div>
+            <div class="font">____<p>{{img.title}}</p></div>
+        </a>
+        </div>
+
+
+        <!--阅读 article-->
+        <img src="img/black.png" class="kuang">
+        <span class="read">阅读 | read</span>
+        <div class="content" v-for="contents in articles">
+            <span><a href="">{{contents.title}}</a></span>
+            <small><a href="">By / {{contents.uname}}</a></small>
+            <small>____</small>
+            <p>{{contents.summary}}<a href="">VIEW ALL <img src="img/green.png"></a></p>
+            <a href=""><img :src="contents.cover" class="photo"></a>
+            <p class="contBottom">{{contents.views}}次阅读 | 评论:{{contents.comments}} | 喜欢:{{contents.likes}}</p>
+        </div>
+
+
+        <!--图片 Picture-->
+        <img src="img/black.png" class="kuang1">
+        <span class="read">图片 | Picture</span>
+        <div class="midSecond">
+            <!--左-->
+            <div class="mid-mid mid-left" v-for="vision in visions">
+                <a href="">
+                    <img :src="vision.cover[0]" class="mid-left-pic">
+                    <img :src="vision.cover[1]" class="mid-left-pic">
+                    <img :src="vision.cover[2]" class="mid-left-pic">
+                </a>
+                <span><a href="">{{vision.title}}</a></span>
+                <p>{{vision.summary}}<a href="">VIEW ALL<img src="img/green.png" class="mark"></a></p>
+
+                <small><a href="">By / {{vision.uname}}</a></small>
+                <p class="contBottom">{{vision.views}}次阅读 | 评论:{{vision.comments}} | 喜欢:{{vision.like}}</p>
+            </div>
+        </div>
+
+
+        <!--Ting-->
+        <img src="img/black.png" class="kuang2">
+        <span class="read">Ting</span>
+        <div class="midThird">
+            <div class="midThirdAll" v-for="ting in tings">
+                <div class="ps">
+                    <img :src="ting.cover">
+                    <div class="midMengAll">
+                        <div class="midMeng"></div>
+                        <img src="img/play.png" class="play">
+                    </div>
+                </div>
+                <span><a href="">{{ting.title}}</a></span>
+                <small><a href="">主播 / {{ting.uname}}</a></small>
+                <p>{{ting.view}}次播放 | 评论:{{ting.comment}} | 喜欢:{{ting.like}}</p>
+
+            </div>
+        </div>
+
+
+        <!--人气片客 | Hot Pianker-->
+        <img src="img/black.png" class="kuang">
+        <span class="read">人气片客 | Hot Pianker</span>
+        <div class="midForth">
+            <div class="modual" v-for="pianker in piankers">
+                <img src="img/big.png" class="bigBj bigBj1">
+                <a href=""><img :src="pianker.cover" class="header"></a>
+                <span><a href="">{{pianker.uname}}</a></span>
+                <small>___</small>
+                <p>{{pianker.summary}}</p>
+                <img src="img/music.png" class="music">
+            </div>
+
+        </div>
+
+        <!--查看更多-->
+        <div class="moreBig">
+            <a href="">
+                <div class="moreSmall">查看更多精选内容</div>
+            </a>
+        </div>
+
+    </div>
+
+    <!--底部-->
+    <footer>
+        <div class="footAll">
+            <img src="img/pk1.png" class="footLogo">
+            <ul>
+                <li>关于我们</li>
+                <li>友情链接</li>
+                <li>片刻帮助</li>
+                <li>意见反馈</li>
+                <li>成长记忆</li>
+            </ul>
+            <p>All rights reserved © 2016 pianke.me /蜀ICP备12022689号-1</p>
+            <div class="footAllP">
+                <div class="footP footP1"></div>
+                <div class="footP footP2"></div>
+                <div class="footP footP3"></div>
+                <img src="img/code.png" class="code">
+            </div>
+            <img src="img/行业验证.png" class="verify">
+
+        </div>
+    </footer>
+</div>  
+
+</body>
+<script>
+
+    var picture=[
+
+        {name:'http://hpimg.pianke.me/a6173860cb59708408031d8b9adb64c720170505.jpg?imageView2/2/w/640/format/jpg',
+            title:'剧单 | 推荐7部小众英剧'
+        },
+        {
+            name:'http://hpimg.pianke.me/a59f871fb2b2dec7cbfd2fd925ae673720170417.jpg?imageView2/2/w/640/format/jpg',
+            title:'你曾为喜欢的人做出过怎样的改变'
+        },
+        {
+            name:'http://pkimg.image.alimmdn.com/upload/20170410/7fc027bf0382534d131180300b86e89a.JPG@640w_85Q.jpg',
+            title:'心酸'
+        },
+        {
+            name:'http://hpimg.pianke.me/db9de9caad6a15b1653d43302eb4c24c20170503.jpg?imageView2/2/w/640/format/jpg',
+            title:'宋仲基还是郑中基？3招教你克服选择困难症！'
+        },
+        {
+            name:'http://pkimg.image.alimmdn.com/upload/20151229/20d253dd44a5022eac91e6cb57ef2d23.JPG@640w_85Q.jpg',
+            title:'外面的世界'
+        }
+
+    ];
+    var article = [
+        {title:'掌握这个关键技能，轻松玩转职场！',
+         summary:'文/潇逸霏 1.3月初，我一个大学同学发微信给我，她刚辞职没多久，要换工作，想让我帮她改简历。我和她从毕业到现在都没联系过，我们班另一个',
+         uname: '潇逸霏',
+         views:232,
+         likes:22,
+         comments:1,
+         cover: 'http://hpimg.pianke.me/167f0da4d9238ad6e844313f885c74b120170505.jpg?imageView2/2/w/640/format/jpg'
+        },
+        {title:'我曾经毫无指望地爱过你',
+            summary:'1  “雨声潺潺，像住在溪边。宁愿天天下雨，以为你是因为下雨不来。”  很难想象，这么缠绵绯恻的情话，竟然出自性格清冷的张爱玲笔下。她日日相思的人，也不是众所',
+            uname: 'ζั͡✾造ൢ梦ൢ',
+            views:637,
+            likes:56,
+            comments:2,
+            cover: 'http://hpimg.pianke.me/a3919a470886b62ba9e5b5b6fc9c927720170426.jpg?imageView2/2/w/640/format/jpg'
+        },
+        {title:'曾经我也想过一了百了',
+            summary:'中岛美嘉   曾经我也想过一了百了“我本想这个冬天就死去的，可是最近拿到一套鼠灰色细条纹的麻质和服，是适合夏天穿的和服，所以我还是先活到夏天',
+            uname: 'Seven凉奈',
+            views:683,
+            likes:57,
+            comments:3,
+            cover: 'http://hpimg.pianke.me/44c981fc205520f8d251b54a807e4a2020170505.jpg?imageView2/2/w/640/format/jpg'
+        }
+    ];
+    var vision = [
+        {title:'守时 | 需要两个人才能带上的手环',
+            summary:'我们做了一些让你感到「为难」的设计。',
+            uname: '片刻',
+            views:941,
+            like:39,
+            comments:3,
+            cover: [
+                    "http://hpimg.pianke.me/00a44494109e1d39b7804431cd05b8f820170505.jpg?imageView2/2/w/640/format/jpg",
+                    'http://hpimg.pianke.me/5b1d935097d6429b89709a502580034320170505.jpg?imageView2/2/w/640/format/jpg',
+                    'http://hpimg.pianke.me/86c312506fc282b1f1aa76267675adb620170505.jpg?imageView2/2/w/640/format/jpg'
+            ]
+        },
+    ];
+    var Ting = [
+        {title:'【斑马 斑马】',
+            summary:'月下 ，一曲马头琴\n窗外， 便不负韶华',
+            uname: '握蓝',
+            view:8427,
+            like:86,
+            comment:12,
+            cover: 'http://hpimg.pianke.me/0903d5594804a7cdbe7d93e75553aa4e20170410.jpg?imageView2/2/w/640/format/jpg'
+        },
+        {title:'你今年二十岁出头',
+            summary:'weibo：Deer诗婕你今年二十岁出头，还在读书，或者刚刚开始工作。你的经济收',
+            uname: 'Deer诗婕',
+            view:749,
+            like:16,
+            comment:4,
+            cover: 'http://hpimg.pianke.me/e598f955425d2c64821be1214fe4307320170505.PNG?imageView2/2/w/640/format/jpg'
+        },
+        {title:'我怕来不及，我要抱着你',
+            summary:'我怕来不及 我要抱着你直到感觉你的皱纹 有了岁月的痕迹直到肯定你是真的 直到失去',
+            uname: '蹦蹬',
+            view:329,
+            like:5,
+            comment:1,
+            cover: 'http://hpimg.pianke.me/cfcb435b7aaf69b433d4e4bc15923f2b20170505.jpg?imageView2/2/w/640/format/jpg'
+        }
+    ];
+    var Pianker = [
+        {
+            summary:'片刻翻唱达人',
+            uname: '羊萌萌',
+            cover: 'http://pkimg.image.alimmdn.com/upload/20170414/8dabf2aae99f99cdd598186cbd0380a8.jpg@90w_90h_1e_1c_85Q.jpg',
+            icon: ''
+        },
+        {
+            summary:'流行歌手王睿',
+            uname: '王睿 Ray',
+            cover: 'http://hpimg.pianke.me/4cca2c8e44c978c11697d580db691bb220170209.png?imageView2/2/w/90/format/jpg',
+            icon: ''
+        },
+        {
+            summary:'声音是颗安眠药',
+            uname: '南夏-',
+            cover: 'http://pkicon.image.alimmdn.com/icon/876/604876/4940be8b28eee8808afc807251a98355_180',
+            icon: ''
+        },
+        {
+            summary:'酿酒、养猫、讲故事',
+            uname: '七染和以呆',
+            cover: 'http://hpimg.pianke.me/8051fb756aada8fb0ef286a1248e006820170423.jpg?imageView2/2/w/90/format/jpg',
+            icon: ''
+        }
+    ];
+
+    var vm = new Vue({
+       el: '#app',
+        data: {
+            navs:['首页','阅读','电台','碎片','客户端'],
+            images: picture,
+            articles:article,
+            visions: vision,
+            tings: Ting,
+            piankers: Pianker
+        }
+    });
+
+
+
+</script>
+</html>
